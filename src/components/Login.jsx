@@ -12,12 +12,17 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
-    setLoading(true);
 
     const cleanInput = username.trim().toLowerCase();
-    const emailFormat = cleanInput.includes("@")
-      ? cleanInput
-      : `${cleanInput}@dreamsheep.local`;
+
+    if (!/^[a-z0-9_.-]+$/.test(cleanInput)) {
+      setError("Masukkan username yang valid tanpa @.");
+      return;
+    }
+
+    setLoading(true);
+
+    const emailFormat = `${cleanInput}@dreamsheep.local`;
 
     try {
       await signInWithEmailAndPassword(auth, emailFormat, password);
@@ -75,6 +80,9 @@ export default function Login() {
               <input
                 type="text"
                 required
+                autoComplete="username"
+                autoCapitalize="none"
+                spellCheck={false}
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Masukkan username"
@@ -95,6 +103,7 @@ export default function Login() {
               <input
                 type="password"
                 required
+                autoComplete="current-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Masukkan password"
