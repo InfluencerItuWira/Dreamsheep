@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth, database } from "./firebase";
 import { ref, get } from "firebase/database";
+import ProfileMenu from "./components/ProfileMenu";
 import {
   LayoutDashboard, Activity, History, Bell, Settings,
   Thermometer, Droplets, Wind, Fan, Menu, LogOut,
@@ -63,10 +64,10 @@ function DashboardContent({ user, role, onLogout }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const simulation = useFirebaseSensor();
 
-  const displayUsername = user?.email
-    ? user.email.split("@")[0]
-    : "Admin";
-  const avatarInitial = displayUsername.charAt(0).toUpperCase();
+  // const displayUsername = user?.email
+  //   ? user.email.split("@")[0]
+  //   : "Admin";
+  // const avatarInitial = displayUsername.charAt(0).toUpperCase();
 
   const dataLabel = simulation.isDeviceOnline
     ? "Live dari sensor ESP32"
@@ -200,12 +201,11 @@ function DashboardContent({ user, role, onLogout }) {
                   : "Terhubung Firebase • ESP32 Offline"
                 : "Menghubungkan Firebase..."}
             </span>
-            <div
-              title={`Login sebagai ${displayUsername}`}
-              className="w-10 h-10 rounded-full bg-[#A7C6E8] flex items-center justify-center font-bold text-[#23436B]"
-            >
-              {avatarInitial}
-            </div>
+            <ProfileMenu
+  user={user}
+  role={role}
+  onLogout={onLogout}
+/>
           </div>
         </header>
 
@@ -227,7 +227,7 @@ function DashboardContent({ user, role, onLogout }) {
 
                   <div className="self-start bg-white/15 px-4 py-2 rounded-xl text-sm flex items-center gap-2">
                     <Beef size={18} className="text-white" />
-                    <span>Kandang Domba Kiloanku</span>
+                    <span>Domba Kiloan Kandang.ku</span>
                   </div>
                 </div>
               </section>
