@@ -160,13 +160,6 @@ function DashboardContent({ user, role, onLogout }) {
         </nav>
 
         <div className="p-4 border-t border-white/10 space-y-3">
-          <button
-            onClick={onLogout}
-            className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-rose-200 hover:bg-rose-500/20 hover:text-white transition cursor-pointer"
-          >
-            <LogOut size={18} />
-            Keluar
-          </button>
           <div className="px-2">
             <p className="text-xs text-blue-200">DreamSheep © 2026</p>
             <p className="text-xs text-blue-200">IPB University</p>
